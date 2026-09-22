@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Sent to a clinician{% endblock %}
+{% block content %}
+  <h1>Sent to a clinician for review</h1>
+  <div class="banner-otc">
+    Your case has been created in Photon (patient record
+    <code>{{ photon_patient.id }}</code>{% if photon_patient._source == 'mock' %} -- <span class="muted">mocked, Photon sandbox unreachable from this environment</span>{% endif %})
+    and routed to a clinician for review. Reference:
+    <code>{{ external_id }}</code>
+  </div>
+  <p class="lede">
+    A clinician will review your intake, check it against a real interaction/
+    allergy screen, and choose the right option -- you don't need to do
+    anything else right now.
+  </p>
+  {% if eligibility.interacting_meds_found %}
+    <p class="muted">Flagged for the clinician's attention: {{ eligibility.interacting_meds_found | join(', ') }}</p>
+  {% endif %}
+  {% if photon_patient.unresolved_allergies %}
+    <div class="banner-escalate">
+      Heads up: {{ photon_patient.unresolved_allergies | join(', ') }} couldn't be matched
+      against Photon's allergen catalog, so {{ 'it wasn' if photon_patient.unresolved_allergies|length == 1 else 'they weren' }}'t
+      added to your Photon record. The clinician reviewing your case will still see what
+      you typed, just not as a structured, screened allergy entry.
+    </div>
+  {% endif %}
+  {% if photon_patient.ai_matched_allergies or photon_patient.ai_matched_medications %}
+    <div class="banner-otc">
+      Claude helped match a couple of things you typed against Photon's catalog:
+      {% for m in (photon_patient.ai_matched_allergies or []) + (photon_patient.ai_matched_medications or []) %}
+        "{{ m.typed }}" &rarr; {{ m.name }}{% if not loop.last %}; {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% if photon_patient.unresolved_medications %}
+    <div class="banner-escalate">
+      Heads up: {{ photon_patient.unresolved_medications | join(', ') }} couldn't be matched
+      against Photon's medication catalog, so {{ 'it wasn' if photon_patient.unresolved_medications|length == 1 else 'they weren' }}'t
+      added to your Photon record either. Mention {{ 'it' if photon_patient.unresolved_medications|length == 1 else 'them' }}
+      to the clinician directly.
+    </div>
+  {% endif %}
+  <a class="btn" href="{{ url_for('reset') }}">Start a new check</a>
+{% endblock %}

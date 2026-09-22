@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Over-the-counter option is enough{% endblock %}
+{% block content %}
+  <h1>Good news -- you don't need a prescription</h1>
+  <div class="banner-otc">
+    <strong>{{ display_name }}</strong> is available over the counter and is expected
+    to be effective for you based on {{ hours|int }} hours since intercourse and a
+    weight of {{ weight|int }} lb.
+  </div>
+  <p class="lede">{{ access_info }}</p>
+  <p class="muted">
+    Nothing about this check was sent anywhere -- since no prescription or
+    clinician is needed, no record was created and no case was routed for
+    review.
+  </p>
+  <a class="btn" href="{{ url_for('reset') }}">Start over</a>
+{% endblock %}

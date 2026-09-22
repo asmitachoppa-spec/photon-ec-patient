@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}EC Access{% endblock %}</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #f6f5f3;
+      color: #2a2a2a;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      max-width: 560px;
+      width: 100%;
+      padding: 32px 28px;
+    }
+    h1 { font-size: 1.4rem; margin-top: 0; }
+    p.lede { color: #555; line-height: 1.5; }
+    label { display: block; font-weight: 600; margin: 18px 0 6px; font-size: 0.95rem; }
+    input[type=number], input[type=text], textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 12px;
+      border: 1px solid #d8d5d0;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .hint { color: #888; font-size: 0.85rem; margin-top: 4px; }
+    button, .btn {
+      display: inline-block;
+      margin-top: 24px;
+      background: #6a3fd6;
+      color: #fff;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    button:hover, .btn:hover { background: #5a34b8; }
+    .error { background: #fdeceb; color: #a02c2c; padding: 10px 14px; border-radius: 8px; margin-bottom: 12px; }
+    .banner-otc { background: #eaf6ec; border: 1px solid #bfe3c4; padding: 16px; border-radius: 10px; margin: 18px 0; }
+    .banner-escalate { background: #fff6e5; border: 1px solid #f0d999; padding: 16px; border-radius: 10px; margin: 18px 0; }
+    .muted { color: #888; font-size: 0.85rem; }
+    ul.reasons { padding-left: 18px; color: #555; }
+    code { background: #f1f0ee; padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

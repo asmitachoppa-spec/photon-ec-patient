@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}A few more details{% endblock %}
+{% block content %}
+  <h1>A clinician will need to review this</h1>
+  <div class="banner-escalate">
+    Based on {{ hours|int }} hours since intercourse and a weight of {{ weight|int }} lb,
+    an over-the-counter option isn't clearly the most reliable choice. A
+    clinician will pick the right prescription or in-office option for you --
+    we just need your allergy and medication history first so they have
+    real information to review, not just your two answers above.
+  </div>
+
+  <form method="post" action="{{ url_for('details') }}">
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+
+    <label for="first_name">First name</label>
+    <input type="text" name="first_name" id="first_name" value="{{ first_name or '' }}" required>
+
+    <label for="last_name">Last name</label>
+    <input type="text" name="last_name" id="last_name" value="{{ last_name or '' }}" required>
+
+    <label for="date_of_birth">Date of birth</label>
+    <input type="date" name="date_of_birth" id="date_of_birth" value="{{ date_of_birth or '' }}" required>
+
+    <label for="phone">Phone number</label>
+    <input type="tel" name="phone" id="phone" placeholder="(555) 555-5555" value="{{ phone or '' }}" required>
+    <div class="hint">Photon requires this on the patient record it creates -- it's how a clinician's office would reach you if needed.</div>
+
+    <label for="allergies">Do you have any drug or substance allergies?</label>
+    <input type="text" name="allergies" id="allergies" placeholder="e.g. sulfa drugs, penicillin -- or 'none'">
+
+    <label for="current_medications">Are you currently taking any medications?</label>
+    <input type="text" name="current_medications" id="current_medications" placeholder="e.g. rifampin -- or 'none'">
+    <div class="hint">Separate multiple items with commas. This gets checked against the medication you're recommended.</div>
+
+    <button type="submit">Send to a clinician</button>
+  </form>
+{% endblock %}

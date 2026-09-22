@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Emergency Contraception -- Quick Check{% endblock %}
+{% block content %}
+  <h1>Emergency contraception options</h1>
+  <p class="lede">
+    Answer two quick questions and we'll tell you right away whether an
+    over-the-counter option is enough, or whether we need a bit more
+    information to route you to a clinician.
+  </p>
+
+  {% if error %}<div class="error">{{ error }}</div>{% endif %}
+
+  <form method="post" action="{{ url_for('intake') }}">
+    <label for="hours_since_intercourse">How many hours ago did unprotected sex happen?</label>
+    <input type="number" step="0.5" min="0" name="hours_since_intercourse" id="hours_since_intercourse" required>
+    <div class="hint">If it was "last night" or "this morning," estimate the hours as best you can.</div>
+
+    <label for="weight_lb">Your weight (lb)</label>
+    <input type="number" step="0.1" min="1" name="weight_lb" id="weight_lb" required>
+    <div class="hint">Body weight changes which option is most effective -- this stays private to this check.</div>
+
+    <button type="submit">Continue</button>
+  </form>
+{% endblock %}
